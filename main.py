@@ -26,14 +26,13 @@ def job_search(tag_all):
         link = tag.find('a', class_='serp-item__title')['href']
         company = tag.find('a', class_="bloko-link bloko-link_kind-tertiary")
         vac_text = BeautifulSoup(requests.get(link, headers=get_headers()).text, 'lxml')
-        rrr = vac_text.find('div', class_="g-user-content").text
-        worlds = re.search(f"Django|Flask", rrr)
+        text = vac_text.find('div', class_="g-user-content").text
+        worlds = re.search(f"Django|Flask", text)
         if worlds != None:
            vacancies_data.append(
                {
                 'link': link,
                 'salary': salary.text.replace(u'\u202F', ' '),
-                'text': rrr,
                 'company': company.text.replace(u'\xa0', ' '),
                 'city': city
                }
